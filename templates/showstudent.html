@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+</head>
+{% block body %}
+    
+    <div class="container">
+        <div class="row">  
+    
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Roll No</th>
+                    <th scope="col">Std</th>
+                    <th>gender</th>
+                    <th>city</th>
+                    <th>amount</th>
+                    <th>courses</th>
+                    <th>Paid Fees</th>
+                    <th>Remainimg Fees</th> 
+                    <th>pic</th>  
+                    <th>view</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for s in student  %}
+                  <tr>
+                    <th scope="row">{{s.fname}}</th>
+                    <td>{{s.lname}}</td>
+                    <td>{{s.rno}}</td>
+                    <td>{{s.std}}</td>
+                    <td>{{s.gender}}</td>                  
+                    <td>{{s.city}}</td>
+                    <td>{{s.amount}}</td>
+                    <td>{{s.courses}}</td>
+                    <td>{{s.total_fees_paid }}</td>
+                        <td>
+                            {% if s.remaining_fees > 0 %}
+                            <span class="text-danger">₹{{ s.remaining_fees }}</span>
+                            {% elif s.total_fees_paid == s.amount %}
+                            <span class="text-success">Fully Paid</span>
+                            {% else %}
+                            <span class="text-danger">Paiding</span>
+                            {% endif %}
+                        </td>
+                    <td><img src="/media/{{s.image}}" width="50"></td>
+                    <td><a href="studentdetail/{{s.id}}" class="btn btn-danger">SUCCESS</a></td>
+                    
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+           
+          </div>  
+        </div>   
+    
+{% endblock body %}
+</html>

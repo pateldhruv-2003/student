@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block body %}
+
+    <style>
+      body{
+        background-image: url(/static/image3.webp);
+        background-repeat: no-repeat;
+        background-size:  cover;
+        background-position: center;
+        width: 100%;
+    }            
+
+      tr{
+        color: blue;
+
+      }
+
+      tr :hover{
+        color: blue;
+      }
+    
+      </style>
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Payment Details</h2>
+
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label for="from_date" class="form-label">From Date</label>
+            <input type="date" name="from_date" id="from_date" class="form-control" value="{{ from_date }}">
+        </div>
+        <div class="col-md-4">
+            <label for="to_date" class="form-label">To Date</label>
+            <input type="date" name="to_date" id="to_date" class="form-control" value="{{ to_date }}">
+        </div>
+        <div class="col-md-4 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+
+   <div class="table-responsive">    
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">  
+  
+                  <tr>
+                    <th scope="col">STUDENT</th>
+                    <th scope="col">PAYMENT</th>
+                    <th scope="col">DATE</th>
+                    <th>TAKE</th>
+                    <th>PAYMETHOD</th>
+                    {% comment %} <th>Action</th>
+                   {% endcomment %}
+                  </tr>
+                </thead>
+                
+                <tbody class="table-group-divider">
+                  {% for f in lalo %}
+                  <tr>
+                    <th scope="row">{{f.student}}</th>
+                    <td>{{f.payment}}</td>
+                    <td>{{f.date_paid}}</td>
+                    <td>{{f.take}}</td>
+                    <td>{{f.pay_method}}</td>                
+                    {% comment %} <td><a href="{%url 'delete_fees' f.id %}" onclick="return confirm('Do you want to delete?')" >Delete</a></td>
+                   {% endcomment %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        
+         
+    </div>
+    </div>
+  {% endblock body %}
+</html>

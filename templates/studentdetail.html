@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .abc{
+            font-size: 20px;
+            font-weight: 500;
+        }
+    </style>
+
+</head>
+{% block body %}
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col mt-5">
+                    <img src="/media/{{student.image}}" width="100%">
+                </div>
+
+                <div class="col mt-5">
+                    <div class="abc">{{student.fname}}</div>
+                    <div class="abc">{{student.lname}}</div>
+                    <div class="abc">{{student.rno}}</div>
+                    <div class="abc">{{student.std}}</div>
+                    <div class="abc">{{student.gender}}</div>
+                    <div class="abc">{{student.city}}</div>
+                    <div class="abc">{{student.amount}}</div>
+
+                </div>
+
+            </div>
+
+        </div>
+ -->
+
+        <div class="container">
+            <h2 class="text-center mb-4 mt-5">ONLY VIEW</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <!-- First Name -->
+                    <div class="mb-3 d-flex justify-content-end">
+                        {% if student.image %}
+                        <img src="{{ student.image.url }}" alt="Profile Image" class="img-thumbnail"
+                            style="max-height: 200px; max-width: 150px;">
+                        {% else %}
+                        <p class="text-muted">No image uploaded</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label  class="form-label">First Name</label>
+                        <input type="text" name="fname" class="form-control" placeholder="Enter first name" required value="{{student.fname}}">
+                    </div>
+    
+                
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" name="lname" class="form-control" id="lastName" placeholder="Enter last name" required value="{{student.lname}}">
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="inputroll" class="form-label">rno</label>
+                        <input type="number" class="form-control" name="txtrno" placeholder="rollnumber" required value="{{student.rno}}">
+                    </div>
+            
+                    <div class="col-md-4 mb-3">
+                        <label for="inputstandard" class="form-label">standard</label>
+                        <input type="number" class="form-control" name="txtstd" placeholder="standard" required value="{{student.standard}}">
+                    </div>
+            
+                </div>    
+    
+                <div class="row">
+                    <!-- Gender -->
+                    <div class="col-md-4 mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" name="gender" id="gender" required value="{{student.gender}}">
+                            <option value="">Choose...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+    
+                    <div class="col-md-4 mb-3">
+                        <label for="middleName" class="form-label">amount</label>
+                        <input type="number" name="amount" class="form-control" id="middleName" placeholder="Enter fees" required value="{{student.amount}}">
+                    </div>
+    
+        
+                </div>
+    
+                
+                <div class="row">                    
+                    <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <select class="form-select" name="city" id="city" required value="{{student.city}}">
+                            <option value="Ahemadabad">Ahemadabad</option>
+                            <option value="Surendarnagar">Surendarnagar</option>
+                            <option value="Bhavanagar">Bhavanagar</option>
+                            <option value="Surat">Surat</option>
+                            <option value="Gandhinagar">Gandhinagar</option>
+                        </select>
+                    </div>
+    
+                    
+                    <div class=" col-md-4 mb-3">
+                        <label for="courses" class="form-label">courses</label>
+                    <select name="txtcourses" id="" class="form-select" required value="{{student.courses}}">
+                        <option value="ccc">ccc</option>
+                        <option value="tally">tally</option>
+                        <option value="web developer">web developer</option>
+                                   
+                    </select>
+            
+                    </div>
+               
+                    
+                </div>
+    
+                    <div class="mb-3">
+                        <label for="image" class="form-label">pic</label>
+                        <input type="file" name="txtimage" id="image" class="form-control" required value="{{student.pic}}"> 
+                    </div>
+                    
+                
+    
+    
+                
+            </form>
+        </div>
+    
+        <div class="container accordion mt-5" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        Payment Details
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="container mt-5">
+                            <h2 class="text-center mb-4 mt-3">Payment Details</h2>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            
+                                            <th>Date Paid</th>
+                                            <th>Take By Amount</th>
+                                            <th>Payment Amount</th>
+                                            <th>Payment Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for post in payment %}
+                                        <tr>
+                                        
+                                            <td>{{ post.date_paid }}</td>
+                                            <td>{{ post.take }}</td>
+                                            <td>₹{{ post.payment }}</td>
+                                            <td>{{ post.pay_method }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="text-center">No payments found</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+        
+{%endblock body %}
+</html>!

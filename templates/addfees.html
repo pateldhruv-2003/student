@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h2 class="text-center mb-4">Take Payment</h2>
+
+        <div class="card shadow-sm">
+        <div class="card-body">
+    
+        <form method="post" action="{% url 'addfees' %}" encyype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <lable for="student" class="form-label">Student</lable>
+                <select name="student" id="student" class="form-select" required>
+                    <option value="">Select a Student</option>
+                    {% for sa in s %}
+                    <option value="{{sa.id}}">{{sa.fname}} {{sa.lname}}</option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="amount" class="form-label">Payment Amount</label>
+                <input type="number" name="payment" id="payment" class="form-control" step="0.01" placeholder="Enter payment amount" required>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="date_paid" class="form-label">Date</label>
+                <input type="date" name="date_paid" id="date_paid" class="form-control" required>
+
+            </div>
+            
+            <div class="mb-3">
+                <label for="remarks" class="form-label">Take By Amount</label>
+                <input type="text" name="take" id="" class="form-control" placeholder="Enter Take Payment Name" required>
+                
+            </div>
+
+            <div class="mb-3">
+                <label for="payment_method" class="form-label">Payment Method</label>
+                <select name="pay_method" id="payment_method" class="form-select" required>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="Online">Online</option>
+                </select>
+
+            </div>
+            <input type="submit">    
+        </form>
+        </div>
+        </div>
+    </div>
+{% endblock body %}

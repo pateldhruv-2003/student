@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+    
+{% block body %}
+
+      <style>
+
+        .box{
+            border: 1px solid #ccc;
+            padding:10px;
+        }
+
+        .xyz{
+          text-decoration: none;
+          color: black;
+
+        }
+        
+
+        
+        .table thead{
+            background-color: #41b6e0;
+        }
+
+        
+          body{
+              background-image: url(/static/image2.jpg);
+              background-repeat: no-repeat;
+              background-size:  cover;
+              background-position: center;
+            
+          }            
+  
+  
+      
+      
+      </style>
+
+
+    <div class="container">
+    <div class="row">  
+    <form method="get">
+        <input type="text" name="search" placeholder="ENTER THE VALUE">
+        <button type="submit" class="btn btn-success">search</button>
+      {% comment %} <div><a href="addstudent">addstudent</a></div>   {% endcomment %}
+
+      <br/>  
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q" id="inlineFirstName" value="fname">
+        <label class="form-check-label" for="inlineFirstName">FirstName</label>
+      </div>
+      <br/>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q" id="inlinecity" value="city">
+        <label class="form-check-label" for="inlinecity">city</label>
+      </div>
+      <br/>
+      
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q" id="inlineLastName" value="gender">
+        <label class="form-check-label" for="inlinegender">gender</label>
+  
+      </div>
+      <br/>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q" id="inlineLastName" value="lname">
+        <label class="form-check-label" for="inlineLastName">LastName</label>
+  
+      </div>
+      
+    </form>
+    </div>
+    </div>
+
+    
+       <div class="container mt-3">
+      <h2 class="text-center mb-4">Student Details</h2>
+      <div class="table-responsive">
+          <table class="table table-striped">
+  
+            <thead>
+              <tr>
+          
+                <th>First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Roll No</th>
+                <th scope="col">Std</th>
+                <th>gender</th>
+                <th>city</th>
+                <th>amount</th>
+                <th>pic</th>
+                <th>courses</th>
+                <th>Paid Fees</th>
+                <th>Remainimg Fees</th>              
+                <th>Action</th>
+              
+
+                
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for s in student  %}
+              <tr>
+                <th scope="row">{{s.fname}}</th>
+                <td>{{s.lname}}</td>
+                <td>{{s.rno}}</td>
+                <td>{{s.std}}</td>
+                <td>{{s.gender}}</td>                  
+                <td>{{s.city}}</td>
+                <td>{{s.amount}}</td>
+                <td><img src="media/{{s.image}}" width="50px" height="80px"></td>
+                <td>{{s.courses}}</td>
+                <td>{{ s.total_fees_paid }}</td>
+                        <td>
+                            {% if s.remaining_fees > 0 %}
+                            <span class="text-danger">₹{{ s.remaining_fees }}</span>
+                            {% elif s.total_fees_paid == s.amount %}
+                            <span class="text-success">Fully Paid</span>
+                            {% else %}
+                            <span class="text-danger">Paiding</span>
+                            {% endif %}
+                        </td>
+                
+
+                {% comment %} <td class="xyz"><a href="{%url 'edited_student' s.id %}" class="xyz">Edit</a></td>
+                <td><a href="{%url 'delete_student' s.id%}"  class="xyz" onclick="return confirm('Do you want to delete?')" class="box1">Delete</a></td>
+                <td><a href="{%url 'studentdetail' s.id%}" class="btn btn-danger">SUCCESS</a></td>                                  {% endcomment %}
+
+                <td>
+                            <a href="{% url 'edited_student' s.id %}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                            <form action="{% url 'delete_student' s.id %}" method="post" class="d-inline" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fa fa-times"></i></button>
+                            </form>
+                            <a href="{% url 'studentdetail' s.id %}" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+                           
+                </td>
+                
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       
+      </div>  
+    </div>
+    
+{% endblock body %}
+
